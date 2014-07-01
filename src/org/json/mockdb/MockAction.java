@@ -41,10 +41,15 @@ public class MockAction {
 	public static <M extends MockItem> M read(M item) throws IOException {
 		List<M> itemsList = listAll(item);
 		
-		for (M i : itemsList) {
-			if (i.getId().equals(item.getId())) {
-				return i;
+		if (item.getId() != null) {
+			
+			for (M i : itemsList) {
+				String id = i.getId();
+				if (id != null && id.equals(item.getId())) {
+					return i;
+				}
 			}
+			
 		}
 		
 		return null;
@@ -59,22 +64,27 @@ public class MockAction {
 	public static <M extends MockItem> void update(M item) throws IOException {
 		List<M> itemsList = listAll(item);
 		boolean itemFound = false;
-		
-		int index = 0;
-		for (M i : itemsList) {
-			if (i.getId().equals(item.getId())) {
-				itemsList.set(index, item);
-				itemFound = true;
-				break;
+
+		if (item.getId() != null) {
+			
+			int index = 0;
+			for (M i : itemsList) {
+				String id = i.getId();
+				if (id != null && id.equals(item.getId())) {
+					itemsList.set(index, item);
+					itemFound = true;
+					break;
+				}
+				
+				index++;
 			}
 			
-			index++;
-		}
-		
-		if (!itemFound) {
-			System.out.println("Item to delete not found!");
-		} else {
-			overrideFile(itemsList, item.getFileName());
+			if (!itemFound) {
+				System.out.println("Item to delete not found!");
+			} else {
+				overrideFile(itemsList, item.getFileName());
+			}
+			
 		}
 	}
 	
@@ -87,21 +97,26 @@ public class MockAction {
 		List<M> itemsList = listAll(item);
 		boolean itemFound = false;
 		
-		int index = 0;
-		for (M i : itemsList) {
-			if (i.getId().equals(item.getId())) {
-				itemsList.remove(index);
-				itemFound = true;
-				break;
+		if (item.getId() != null) {
+			
+			int index = 0;
+			for (M i : itemsList) {
+				String id = i.getId();
+				if (id != null && id.equals(item.getId())) {
+					itemsList.remove(index);
+					itemFound = true;
+					break;
+				}
+				
+				index++;
 			}
 			
-			index++;
-		}
+			if (!itemFound) {
+				System.out.println("Item to delete not found!");
+			} else {
+				overrideFile(itemsList, item.getFileName());
+			}
 		
-		if (!itemFound) {
-			System.out.println("Item to delete not found!");
-		} else {
-			overrideFile(itemsList, item.getFileName());
 		}
 		
 	}
