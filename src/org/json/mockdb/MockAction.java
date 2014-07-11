@@ -80,7 +80,7 @@ public class MockAction {
 			}
 			
 			if (!itemFound) {
-				System.out.println("Item to delete not found!");
+				System.out.println("Item to update not found!");
 			} else {
 				overrideFile(itemsList, item.getFileName());
 			}
